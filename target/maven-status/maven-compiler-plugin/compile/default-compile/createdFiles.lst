@@ -1,0 +1,5 @@
+com\codefest\main\config\Config.class
+com\codefest\main\config\WebInitializer.class
+com\codefest\main\vo\HomeVO.class
+com\codefest\main\validator\LoginScreenValidator.class
+com\codefest\main\controller\HomeController.class
