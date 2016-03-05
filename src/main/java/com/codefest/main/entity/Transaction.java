@@ -2,6 +2,7 @@ package com.codefest.main.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 public class Transaction implements Serializable{
 
@@ -14,6 +15,8 @@ public class Transaction implements Serializable{
 	private Date date;
 	
 	private Long vendorId;
+	
+	List<Menu> menuList;
 
 	public Long getVendorId() {
 		return vendorId;
