@@ -2,7 +2,6 @@ package com.codefest.main.entity;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 
 public class Transaction implements Serializable{
 
@@ -16,7 +15,17 @@ public class Transaction implements Serializable{
 	
 	private Long vendorId;
 	
-	List<Menu> menuList;
+	private String menuName;
+	
+	private Long Price;
+
+	public Long getPrice() {
+		return Price;
+	}
+
+	public void setPrice(Long price) {
+		Price = price;
+	}
 
 	public Long getVendorId() {
 		return vendorId;
@@ -48,6 +57,14 @@ public class Transaction implements Serializable{
 
 	public void setDate(Date date) {
 		this.date = date;
+	}
+	
+	public String getMenuName() {
+		return menuName;
+	}
+
+	public void setMenuName(String menuName) {
+		this.menuName = menuName;
 	}
 
 }
