@@ -1,6 +1,7 @@
 package com.codefest.main.entity;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class Vendor implements Serializable{
 
@@ -11,6 +12,16 @@ public class Vendor implements Serializable{
 	private String vendorName;
 	
 	private String password;
+	
+	private List<Transaction> transaction;
+	
+	private String vendorEmail;
+	
+	private Long vendorPhone;
+	
+	private String incharge;
+	
+	private String vendorDetail;
 	
 	public Long getVendorId() {
 		return vendorId;
@@ -67,13 +78,13 @@ public class Vendor implements Serializable{
 	public void setVendorDetail(String vendorDetail) {
 		this.vendorDetail = vendorDetail;
 	}
+	
+	public List<Transaction> getTransaction() {
+		return transaction;
+	}
 
-	private String vendorEmail;
-	
-	private Long vendorPhone;
-	
-	private String incharge;
-	
-	private String vendorDetail;
+	public void setTransaction(List<Transaction> transaction) {
+		this.transaction = transaction;
+	}
 
 }

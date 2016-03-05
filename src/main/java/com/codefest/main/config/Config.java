@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jndi.JndiTemplate;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -57,6 +58,20 @@ public class Config extends WebMvcConfigurerAdapter{
         return jdbcTemplate;
     
     }
-   
+
+    @Bean
+    public NamedParameterJdbcTemplate initializeDataSource1(){
+    	DataSource dataSource = null;
+        JndiTemplate jndi = new JndiTemplate();
+        NamedParameterJdbcTemplate namedParameterJdbcTemplate = null;
+        try {
+            dataSource = (DataSource) jndi.lookup("java:comp/env/jdbc/postgresql/postgres");
+            namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
+        } catch (NamingException e) {
+            e.printStackTrace();
+        }
+        return namedParameterJdbcTemplate;
+    
+    }
   
 }  

@@ -12,6 +12,16 @@ public class Transaction implements Serializable{
 	private Long userId;
 	
 	private Date date;
+	
+	private Long vendorId;
+
+	public Long getVendorId() {
+		return vendorId;
+	}
+
+	public void setVendorId(Long vendorId) {
+		this.vendorId = vendorId;
+	}
 
 	public Long getTransactionId() {
 		return transactionId;
