@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -91,6 +92,56 @@ public class AdminController {
 			e.printStackTrace();
 		}
 		return null;
+	}
+	
+	@RequestMapping(value = "/edit/{vendorId}")
+	@SuppressWarnings("all")
+	public String updateVendor(@PathVariable("vendorId") Long vendorId, Vendor vendorUI, Model model) throws Exception{
+		System.out.println("Entered updateVendor method");
+		Long vendorId1 = null;
+		if(vendorUI != null){
+			vendorId = vendorUI.getVendorId();
+		}else{
+			throw new Exception("vendorUI must not be null");
+		}
+		String sqlVendor = "Select * from vendor where vendor_id = ?";
+		Vendor vendorDB = new Vendor();
+		Class<?> entityClass = null;
+		Object entityObj = null;
+		try{
+			entityClass = Class.forName("com.codefest.main.entity.Vendor");
+			entityObj = entityClass.newInstance();
+			vendorDB = (Vendor) jdbcTemplate.queryForObject(sqlVendor, new Object[]{vendorId}, new BeanPropertyRowMapper(entityObj.getClass()));
+			if(vendorDB == null){
+				throw new Exception("No valid record found for the given vendorID");
+			}
+			populateVendor(vendorUI, vendorDB);
+			String sqlUpdateVendor = "UPDATE Vendor set vendor_name=?, vendor_email = ?, vendor_phone = ?, incharge = ?, vendor_detail = ? where vendor_id=?";
+			jdbcTemplate.update(sqlUpdateVendor, vendorDB.getVendorName(), vendorDB.getVendorEmail(), vendorDB.getVendorPhone(),
+					vendorDB.getIncharge(), vendorDB.getVendorDetail(), vendorDB.getVendorId());
+		}catch (ClassNotFoundException | InstantiationException | IllegalAccessException | EmptyResultDataAccessException e) {
+			e.printStackTrace();
+		}
+		//handle model objects
+		return null;
+	}
+	
+	private void populateVendor(Vendor vendorUI,Vendor vendorDB){
+		if(vendorUI.getVendorName() != null){
+			vendorDB.setVendorName(vendorUI.getVendorName());
+		}
+		if(vendorUI.getVendorEmail() != null){
+			vendorDB.setVendorEmail(vendorUI.getVendorEmail());
+		}
+		if(vendorUI.getVendorDetail() != null){
+			vendorDB.setVendorDetail(vendorUI.getVendorDetail());
+		}
+		if(vendorUI.getVendorPhone() != null){
+			vendorDB.setVendorPhone(vendorUI.getVendorPhone());
+		}
+		if(vendorUI.getIncharge() != null){
+			vendorDB.setIncharge(vendorUI.getIncharge());
+		}
 	}
 
 }
