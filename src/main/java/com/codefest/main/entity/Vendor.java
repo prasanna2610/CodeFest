@@ -23,6 +23,8 @@ public class Vendor implements Serializable{
 	
 	private String vendorDetail;
 	
+	private List<Menu> menu;
+	
 	public Long getVendorId() {
 		return vendorId;
 	}
@@ -85,6 +87,14 @@ public class Vendor implements Serializable{
 
 	public void setTransaction(List<Transaction> transaction) {
 		this.transaction = transaction;
+	}
+	
+	public List<Menu> getMenu() {
+		return menu;
+	}
+
+	public void setMenu(List<Menu> menu) {
+		this.menu = menu;
 	}
 
 }
